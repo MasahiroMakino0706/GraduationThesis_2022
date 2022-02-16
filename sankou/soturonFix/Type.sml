@@ -1,0 +1,102 @@
+structure Type = 
+struct
+  type jumanOutputSemTy = 
+    {
+     代表表記 : string option,
+     カテゴリ : string option,
+     漢字読み : string option,
+     反義 : string option
+     (*
+     ドメイン : string option,
+     固有名詞 : string option,
+     見出し語間の意味関係
+     読みの音訓情報
+     *)
+    }
+  type jumanOutputTy = 
+    {
+     1_表層形 : string, 
+     2_読み : string,
+     3_見出し語 : string,
+     4_品詞大分類 : string,
+     5_品詞大分類_ID : int option,
+     6_品詞細分類 : string,
+     7_品詞細分類_ID : int option,  
+     8_活用型 : string option,
+     9_活用型_ID : int option,
+     10_活用形 : string option,
+     11_活用形_ID : int option,
+     12_意味情報 : jumanOutputSemTy option
+     }
+    
+  type jumanMeisiJyosi = 
+    {
+      名詞 : string, 
+      名詞情報 : jumanOutputTy,
+      助詞情報 : jumanOutputTy
+    }
+
+  type jumanMeisi = 
+    {
+      名詞 : string,
+      名詞情報 : jumanOutputTy
+    }
+
+  type jumanKeiyousi = 
+    {
+      形容詞 : string, 
+      形容詞情報 : jumanOutputTy
+    }
+
+  type jumanDousi = 
+    {
+      動詞 : string,
+      動詞情報 : jumanOutputTy
+    }
+
+  datatype bunsetu = 
+    名詞は of jumanMeisiJyosi
+  | 名詞が of jumanMeisiJyosi
+  | 名詞を of jumanMeisiJyosi
+  | 名詞の of jumanMeisiJyosi
+  | 名詞に of jumanMeisiJyosi
+  | 名詞へ of jumanMeisiJyosi
+  | 名詞 of jumanMeisi
+  | 形容詞 of jumanKeiyousi
+  | 動詞 of jumanDousi
+
+  type keiyosiJyutugo = 
+    {
+      主格 : string,
+      の格 : string option (*オプションなしで想定されうる型を網羅していく*)
+    }
+
+  type dousiJyutugo = 
+    {
+      主格: string,
+      を格 : string option,
+      に格 : string option,
+      へ格 : string option
+    }
+
+  type keiyosibun = 
+    {
+      種類 : string,
+      述語 : keiyosiJyutugo,
+      提題 : string
+    }
+
+  type jyunsibun = 
+    {
+      種類 : string,
+      述語 : keiyosiJyutugo,
+      提題 : string
+    }
+  
+  type dousibun = 
+    {
+      種類 : string,
+      述語 : dousiJyutugo,
+      提題 : string
+    }
+end

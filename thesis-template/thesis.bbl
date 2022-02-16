@@ -1,0 +1,55 @@
+\begin{thebibliography}{10}
+
+\bibitem{Andreas:Debugging}
+Andreas~Zeller著, 中田秀基監訳, 今田昌宏, 大岩尚宏, 竹田香苗, 宮原久美子,
+  宗形紗織訳.
+\newblock デバッグの理論と実践 -なぜプログラムはうまく動かないのか.
+\newblock オライリージャパン, 2012.
+
+\bibitem{Inoue:Gamification}
+井上明人.
+\newblock ゲーミフィケーションー＜ゲーム＞がビジネスを変える.
+\newblock NHK出版, 2012.
+
+\bibitem{ring}
+リングフィットアドベンチャー.
+\newblock \url{https://www.nintendo.co.jp/ring/}.
+
+\bibitem{Yama}
+山本頼弥, 野口靖浩, 小暮悟, 山下浩一, 小西達裕, 伊東幸宏.
+\newblock
+  場当たり的なデバッグを行ってしまう学習者に体系的デバッグ手順を指導する授業パッケージと学習支援システムの構築.
+\newblock  教育システム情報学会誌 Vol.35,No.1 2018 pp.21-37, 2018.
+
+\bibitem{robobug}
+Jeremy S.~Bradbury Michael A.~Miljanovic.
+\newblock Robobug: A serious game for learning debugging techniques.
+\newblock In {\em the 2017 ACM Conference}, 2017.
+
+\bibitem{TGS}
+井上明人, 木村知宏, 福田一史, マーティン・ロート, 松永伸司.
+\newblock ゲーム研究の手引き.
+\newblock 文化庁, 2017.
+
+\bibitem{Kishimoto}
+岸本好弘, 三上浩司.
+\newblock ゲーミフィケーションを活用した大学教育の可能性について.
+\newblock 日本デジタルゲーム学会 2012 年次大会発表原稿, pp. 91--96, 2012.
+
+\bibitem{denkimeter}
+\#denkimeter.
+\newblock \url{http://www.denkimeter.com/}, 2020.
+
+\bibitem{Asuken}
+あすけん.
+\newblock \url{https://www.asken.jp/}, 2020.
+
+\bibitem{Progate}
+Progate.
+\newblock \url{https://prog-8.com/}.
+
+\bibitem{AtCoder}
+Atcoder.
+\newblock \url{https://atcoder.jp/}.
+
+\end{thebibliography}

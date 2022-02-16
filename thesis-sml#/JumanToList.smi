@@ -1,0 +1,9 @@
+_require "basis.smi"
+_require "./Type.smi"
+structure JumanToList = 
+struct
+  val Split : string -> string
+  val Juman : string -> string list list
+  val LastJuman : string -> string list list
+  val JumanSemTy : string list -> Type.jumanOutputSemTy option
+end

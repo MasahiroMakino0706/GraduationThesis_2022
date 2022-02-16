@@ -1,0 +1,28 @@
+_require "basis.smi"
+_require "reify.smi"
+_require "./Type.smi"
+_require "./JumanToList.smi"
+_require "./ListToRecord.smi"
+_require "./BunsetuSeparate.smi"
+_require "./Join.smi"
+val moji : string
+val result : 
+    {
+     1_表層形: string,
+     2_読み: string,
+     3_見出し語: string,
+     4_品詞大分類: string,
+     5_品詞大分類_ID: int option,
+     6_品詞細分類: string,
+     7_品詞細分類_ID: int option,
+     8_活用型: string option,
+     9_活用型_ID: int option,
+     10_活用形: string option,
+     11_活用形_ID: int option,
+     12_意味情報:
+       {カテゴリ: string option,
+        代表表記: string option,
+        反義: string option,
+        漢字読み: string option}
+         option
+    } list

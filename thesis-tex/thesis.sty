@@ -1,0 +1,112 @@
+%%
+%% This is file `thesis.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% thesis.dtx  (with options: `package')
+%%
+%% IMPORTANT NOTICE:
+%%
+%% For the copyright see the source file.
+%%
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from thesis.sty.
+%%
+%% For distribution of the original source see the terms
+%% for copying and modification in the file thesis.dtx.
+%%
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{thesis}[2004/02/08 My macros]
+ % ########################
+ % 使い方
+ % \title{研究題名}
+ % \author{名前}{学籍番号}
+ % \eauthor{name}
+ % \school{学部名}
+ % \major{専攻名}
+ % \adviser{指導教官名}
+ % \adviser2{研究指導教官名} \subadviser
+ % \date{提出年月}{卒業年月}
+ % として，
+ % \maketitle
+ % する
+ % ########################
+\parindent      1.0em
+\topmargin      0.0in
+\oddsidemargin  0.0in
+\evensidemargin 0.0in
+\textwidth      6.0in
+\textheight     8.77in
+
+\makeatletter % ここから @マーク有の名前が使える．(\makeatother まで)
+
+\makeatletter
+\renewcommand{\author}[2]{
+  \renewcommand{\@author}      {#1} % 名前
+  \newcommand{\@studentnumber} {#2} % 学籍番号
+}
+\newcommand{\eauthor}[1]{\newcommand{\@eauthor}{#1}} % 名前の英語表記
+\newcommand{\school} [1]{\newcommand{\@school} {#1}} % 研究科
+\newcommand{\major}  [1]{\newcommand{\@major}  {#1}} % 専攻
+\newcommand{\adviser}[1]{\newcommand{\@adviser}{#1}} % 指導教官
+\newcommand{\subadviser}[1]{\newcommand{\@subadviser}{#1}} % 研究指導教員
+\renewcommand{\date}[2]{
+  \newcommand{\@datei}  {#1} % 提出年月 %
+  \newcommand{\@dateii} {#2} % 卒業年月 %
+}
+\renewcommand{\maketitle}{
+\begin{titlepage}
+%  \begin{center}
+%   \null
+%   \vskip 1.5cm
+%   {\Large 卒 \ 業 \ 論 \ 文} \par
+%   \vskip 1.5cm
+%   {\LARGE\bf \@title}\par
+%   \vskip 1.5cm
+%  \end{center} \par
+%  \vfil
+%  \begin{center}
+%   {東北大学工学部情報工学コース} \par
+%   \vskip 1.0cm
+%   {\Large \@author} \par
+%   \vskip 1.0cm
+%   {\@dateii} d\par
+%  \end{center}
+%   \newpage
+ \setcounter{page}{0}
+ \thispagestyle{empty}
+ \begin{center}
+  \null
+  \vskip 1.5cm
+  {\Large 卒 \ 業 \ 論 \ 文} \par
+  \vskip 3.0cm
+  {\LARGE\bf \@title}\par
+  \vskip 1.5cm
+  \end{center} \par
+  \vfil
+  \begin{center}
+   {\@school} \par
+%%   {\@major} \par
+   \vskip 1.0cm
+   {\Large \@studentnumber \@author} \par
+   \vskip 1.5cm
+   \begin{tabular}{rl}
+    指導教員    & {\large \@adviser} \\\\
+   %% 学位論文指導教員 & {\large \@subadviser} \\
+   \end{tabular}
+   \vskip 1.0cm
+   {提出年月: \@datei} \par
+  \end{center}
+  \renewcommand{\thefootnote}{}
+  \footnote{Copyright \copyright\ \number\year\ by \@eauthor}
+\end{titlepage}
+}
+\makeatother
+\endinput
+%%
+%% End of file `thesis.sty'.

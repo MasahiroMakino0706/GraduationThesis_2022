@@ -1,0 +1,101 @@
+%#! platex thesisRev; dvipdfmx thesisRev
+
+\documentclass{jreport}
+\usepackage{thesis}
+
+% \usepackage{enumerate}
+% \usepackage{amsmath}
+% \usepackage{url}
+% \usepackage{comment}
+% \usepackage{booktabs}
+
+% \usepackage[dvipdfmx]{graphicx}
+% \usepackage{fancyvrb}
+% \fvset{frame=single,numbers=left,numbersep=3pt}
+
+\newcommand\SMLSharp{$\mbox{SML\fontfamily{ptm}\selectfont\#}$}
+
+\title{タイトル}
+
+\author{著者}{ID9999}
+\eauthor{The Author}
+\school{東北大学工学部}
+\adviser{大堀 淳\ 教授，菊池 健太郎\ 助教}
+
+\date{令和4年1月31日}{令和4年1月}
+
+\renewcommand{\bibname}{参考文献}
+
+\begin{document}
+\maketitle
+
+
+\chapter*{概要}
+概要
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\chapter{序論}
+\section{背景と目的}
+背景と目的
+
+\section{関連研究}
+関連研究
+
+参考文献は，
+\cite{bunken1}
+と
+\cite{bunken2}
+さえに，
+\cite{robobug:2017}
+である．
+
+
+
+\section{本論文の構成}
+本論文の構成
+
+\chapter{題2章}
+題2章
+\section{題2章題1節}
+題2章題1節
+
+\chapter{デバッグ技術}
+\chapter{デバッグ学習環境システムの設計と実装}
+\chapter{関連研究と議論}
+
+\chapter{結論}
+結論
+
+\chapter*{謝辞}
+{謝辞}
+
+\appendix
+\chapter{Appendix}
+Appendix
+\section{sec1}
+sec1
+
+
+% \bibliographystyle{junsrt}
+% \bibliography{thesisrefs}
+
+\begin{thebibliography}{10}
+
+\bibitem{bunken1}
+著者１
+\newblock 参考文献１
+
+\bibitem{bunken2}
+著者2
+\newblock 参考文献2
+
+\bibitem{robobug:2017}
+Jeremy S.~Bradbury Michael A.~Miljanovic.
+\newblock Robobug: A serious game for learning debugging techniques.
+\newblock In {\em the 2017 ACM Conference}, 2017.
+
+\end{thebibliography}
+
+\end{document}

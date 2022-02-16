@@ -1,0 +1,9 @@
+_require "basis.smi"
+_require "./Type.smi"
+_require "reify.smi"
+structure BunsetuSeparate = 
+struct 
+  val separate : Type.jumanOutputTy -> Type.jumanOutputTy list -> Type.bunsetu list
+  val undone : Type.bunsetu -> Dynamic.dynamic list
+end
+  

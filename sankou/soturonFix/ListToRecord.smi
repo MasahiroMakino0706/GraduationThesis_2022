@@ -1,0 +1,7 @@
+_require "basis.smi"
+_require "./Type.smi"
+_require "./JumanToList.smi"
+structure ListToRecord = 
+struct 
+  val listTorecordSemTy : string list -> Type.jumanOutputTy
+end

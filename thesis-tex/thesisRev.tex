@@ -1,0 +1,234 @@
+%#! platex thesisRev; dvipdfmx thesisRev
+
+\documentclass{jreport}
+\usepackage{thesis}
+% \usepackage{ulem}
+
+% \usepackage{enumerate}
+% \usepackage{amsmath}
+% \usepackage{url}
+% \usepackage{comment}
+% \usepackage{booktabs}
+
+% \usepackage[dvipdfmx]{graphicx}
+% \usepackage{fancyvrb}
+% \fvset{frame=single,numbers=left,numbersep=3pt}
+
+\newcommand\SMLSharp{$\mbox{SML\fontfamily{ptm}\selectfont\#}$}
+
+\title{意味主導の日本語構文解析手法の確立を目指した基礎研究}
+
+\author{牧野雅紘}{B8TB2211}
+\eauthor{Masahiro Makino}
+\school{東北大学工学部}
+\adviser{大堀 淳\ 教授，菊池 健太郎\ 助教}
+
+\date{令和4年1月31日}{令和4年1月}
+
+\renewcommand{\bibname}{参考文献}
+
+\begin{document}
+\maketitle
+
+
+\chapter*{概要}
+本研究の目的は, 三上章により体系化された文法論を用いて意味主導で日本語構文を解析することである.
+本論文ではまず, 三上章が提唱した文法論である三上文法を説明する. 
+その後SMLSharpを用いた解析手法を提案し, 具体的なシステム構築の戦略を述べる.
+最後にシステムの評価と今後の課題について考察を行う.
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\chapter{序論}
+\section{背景と目的}
+日本語では主語の欠落や, 語順の曖昧さが存在する. これらの特徴は日本語特有のものであり, 
+英語を中心とする西洋の言語にはない特徴である.  そのため西洋言語の構文を高い精度で解析することに長けた
+構文主導解析では日本語の構文を十分に解析することは不可能であると考える. 
+
+そこで本研究では, 意味主導で日本語構文を解析することを目的とする.
+そのために, 日本語の言語学者である三上章が提唱した三上文法と関数型言語であるSMLSharpを利用し, システム構築を行う.
+
+\section{関連研究}
+言語学者である三上章が体系化した文法規則を記した\cite{bunken1}を参考文献として使用している.
+\cite{bunken2}
+さえに，
+\cite{robobug:2017}
+である．
+
+
+\section{本論文の構成}
+本論文の構成は次のとおりである.
+2章では本研究で利用する三上文法について紹介する.
+3章ではSMLSharpにおける自然演算結合であるjoinについて述べ, 意味主導解析の方法について論じる.
+4章では具体的なシステム構築の戦略について述べる.
+5章ではシステムの評価を考察し6章で今後の課題について述べる.
+
+\chapter{三上文法について}
+三上章は日本語で最も重要な文法的手段を助詞の"は"であると述べている.
+"は"は主格ではなく提題, つまりこれから話す内容の題目を提示する役割を持っているというのが三上の主張である.
+また, 題目の"は"には2つの役割があり, 1つ目が文末まで係るということ,
+2つ目が助詞である"がのにを"の役割を代行するということと三上は述べている.
+この章では上記に述べた三上文法における助詞の"は"が果たす役割について紹介していく.
+
+\section{提題を表す助詞"は"}
+多くの日本語文法において, 助詞の"は"は助詞の"が"と並び主格であるとされている中, 
+三上章は, 主格の助詞を"が"のみであると述べている. "は"は提題の役割, つまりこれから話す内容の題目を提示しているのであって
+主格ではないと言う. 例を用いて説明しよう.
+\begin{quote}
+ \begin{itemize}
+  \item 象は鼻が長い
+  \item わたしは富山の魚が好き
+ \end{itemize}
+\end{quote}
+上の例では, "は"により象という話題について話すことを明示している. 
+その後, 鼻に"が"が付帯することで長い主体は鼻であることが説明されている.
+従来の日本語文法では"象は"を総主語, "鼻が"を主語とするなどのように主格が2つあることで主語が2つ存在することを認めていた.
+三上章は, "象は"が題目, "鼻が"を動作の仕手とし, 主語の存在を否定している. 
+下の例では, "わたしは"が題目, "富山の魚"を仕手としている.
+
+\section{文末に係る助詞"は"}
+三上章は"は"の本務を文末と呼応することと述べている.
+この役割は"がのにを"にはない役割であり, "は"特有のものである.
+例を用いて説明しよう.
+
+\begin{quote}
+ \begin{itemize}
+  \item 酒\underline{は}尽き\underline{ない}
+  \item 酒\underline{が}\underline{尽き}ない
+ \end{itemize}
+\end{quote}
+
+\begin{quote}
+ \begin{itemize}
+  \item 象\underline{は}鼻が長\underline{い}
+  \item 象\underline{の}\underline{鼻}が長い
+ \end{itemize}
+\end{quote}
+\begin{quote}
+ \begin{itemize}
+  \item 富士山\underline{は}登\underline{らない}
+  \item 富士山\underline{に}\underline{登}らない
+ \end{itemize}
+\end{quote}
+
+\begin{quote}
+ \begin{itemize}
+  \item ジャズ\underline{は}聞\underline{きたくない}
+  \item ジャズ\underline{を}\underline{聞}きたくない
+ \end{itemize}
+\end{quote}
+
+"は"が文末まで係っているのにも関わらず, "がのにを"は直後の語幹までにしか係っていない.
+
+
+\section{他の助詞を代行する助詞"は"}
+助詞の"は"は, 他の助詞"がのにを"の役割を代行する.以下に例を示す.
+\begin{quote}
+ \begin{itemize}
+  \item 父はこの本を買ってくれました
+  \item 父がこの本を買ってくれました
+ \end{itemize}
+\end{quote}
+   
+"は"が最も代行するのが"が"であり, これが"は"と"が"を同じ主格とする考えの根拠になっている.
+ただ"は"が文末まで係るにもかかわらず"が"は直後の語幹までしか係らない.
+また"は"は他の助詞を代行するが, "が"は他の助詞を代行する役割はない.
+そもそも"は"が"が"以外の助詞を代行する場合は"は"を主格とは言えない.
+これらの違いは大きく, "は"と"が"を同じ主格として扱ってはいけない根拠となっている.
+
+\begin{quote}
+ \begin{itemize}
+  \item 去年は夏休みに沖縄に行った
+  \item 去年の夏休みに沖縄に行った
+ \end{itemize}
+\end{quote}
+
+"XはY"において, YがXの性質や消息を表している場合は"XのY"と変換が可能である.
+
+\begin{quote}
+ \begin{itemize}
+  \item 秋は色々な行事が続く
+  \item 秋に色々な行事が続く
+ \end{itemize}
+\end{quote}
+   
+"Xは"においてXが時や人, 所の位置を表している場合は"Xの"と変換が可能である.
+
+\begin{quote}
+ \begin{itemize}
+  \item メバルは煮つけにする
+  \item メバルを煮つけにする
+ \end{itemize}
+\end{quote}
+
+"は"が"を"の役割を代行する際に注意しなければいけないのが, 
+"は"は決して動作の仕手を表してはいないということである.例の仕手は料理を実際に行っている人であり, 
+決してメバルではない. この例からも"は"を必ずしも主格としてはならないという主張の妥当性が分かるだろう.
+
+\chapter{意味主導解析の方法}
+意味主導解析において三上文法の他に重要となるものがSMLSharpにおける自然演算結合のjoinである.
+この章ではjoinの概略を紹介する.
+
+\section{SMLSharpにおけるjoin}
+
+\chapter{システム構築の戦略}
+システムの行う流れは, まず解析したい語において形態素解析を行う. 次に三上文法を使って可能な意味表現を作り出す. 
+その後, joinを用いて自然演算結合を行う.
+この章では上記の流れを実行するシステム構築の戦略について述べる.
+ 
+\section{juman++による形態素解析}
+\subsection{juman++とは}
+京都大学院の黒橋研究室により開発がされた形態素解析システムである.言語モデルとしてRecurrent Neural Network Language Model
+を利用しているのが特徴的である.
+\subsection{形態素解析}
+形態素解析により, 単語間の区切りと品詞が分かる. これにより文節(名詞 + 助詞)で文を区切ることが可能である.
+
+\section{三上文法を使って意味表現を作り出す}
+文節に分けることで, 名詞に対して助詞の果たす格の候補を特定できる.
+"が"であればが格つまり主格の役割をはたしている.
+"は"であれば"は"がのにを"を代行する事実から, が格, の格, に格またはを格が候補となる.
+このように考えられる格の種類によって表現されうる文の意味表現を列挙することが可能である.
+
+\section{joinを使って自然演算結合を行う}
+列挙した考えられうる意味表現をjoinすることで, 余分な意味表現の要素を削り, 正しい意味表現の要素のみが残る.
+つまりjoinした結果が意味表現の正しい姿ということができる.
+
+\chapter{評価}
+
+\chapter{今後の課題}
+結論
+
+\chapter*{謝辞}
+{謝辞}
+
+\appendix
+\chapter{Appendix}
+Appendix
+\section{sec1}
+sec1
+
+
+% \bibliographystyle{junsrt}
+% \bibliography{thesisrefs}
+
+\begin{thebibliography}{10}
+
+\bibitem{bunken1}
+三上章.
+\newblock 象は鼻が長い.
+\newblock くろしお出版, 2021
+
+\bibitem{bunken2}
+大堀淳.
+\newblock 意味論主導の日本語構文解析について.
+\newblock unpublished manuscript, 2022.
+
+\bibitem{robobug:2017}
+Jeremy S.~Bradbury Michael A.~Miljanovic.
+\newblock Robobug: A serious game for learning debugging techniques.
+\newblock In {\em the 2017 ACM Conference}, 2017.
+
+\end{thebibliography}
+
+\end{document}

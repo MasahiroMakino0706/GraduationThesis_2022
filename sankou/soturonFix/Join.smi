@@ -1,0 +1,7 @@
+_require "basis.smi"
+_require "reify.smi"
+structure Join = 
+struct 
+  val listjoin : Dynamic.dynamic list list -> Dynamic.dynamic list
+end
+
