@@ -6,7 +6,10 @@ local
             ^ "*****************************\n" )
   fun ppDynList l = app (fn x => print (toJson x ^ "\n")) l
 in
-  val 構文解析対象文 = "東京は次郎が行く"
+  val _ = print("解析したい文を入力してください。\n")
+  val 構文解析対象文 = case TextIO.inputLine TextIO.stdIn of 
+                        NONE => "エラー"
+                      | SOME t => String.extract (t, 0, SOME (String.size t - 1))
   val _ = mes "構文解析対象文"
   val _ = print (構文解析対象文 ^ "\n")
   val 形態素 = map (ListToRecord.listTorecordSemTy) (JumanToList.Juman 構文解析対象文)
