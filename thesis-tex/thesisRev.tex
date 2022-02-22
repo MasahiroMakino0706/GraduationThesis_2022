@@ -187,7 +187,7 @@
 意味主導解析において三上文法の他に重要となるものがSMLSharpにおける自然演算結合のjoinである.
 この章ではjoinの概略を紹介する.
 
-\section{自然演算結合とは}
+\section{自然結合演算とは}
 
 
 \section{}
@@ -208,7 +208,7 @@
 形態素解析により, 単語間の区切りと品詞が分かる. 形態素ごとに以下のような情報を保持したラベル付きレコードを作り, 
 そのレコードを要素としたリストを作成する.
 
-\begin{Verbatim}
+\begin{verbatim}
 type jumanOutputTy = 
   {
     表層形 : string, 
@@ -224,11 +224,11 @@ type jumanOutputTy =
     活用形_ID : int option,
     意味情報 : jumanOutputSemTy option
   }
-\end{Verbatim}
+\end{verbatim}
 
 "象は鼻が長い"の形態素解析の結果を以下に示す.
 
-\begin{Verbatim}
+\begin{verbatim}
     [
         {
           1_表層形 = "象",
@@ -324,7 +324,7 @@ type jumanOutputTy =
               }
         }
       ]
-\end{Verbatim}
+\end{verbatim}
 
 Juman++の形態素解析結果が未定義の場合はNONEとしている.
 
@@ -337,7 +337,7 @@ Juman++の形態素解析結果が未定義の場合はNONEとしている.
 形態素解析の結果, 各形態素の品詞は特定できているため, 形態素の集合を文節の集合に分けることは容易である.
 以下のような関数を定義して文節分けを実現した.
 
-\begin{Verbatim}
+\begin{verbatim}
     fun separate record lis = 
     if lis = nil then
       case #4_品詞大分類 record of
@@ -361,13 +361,13 @@ Juman++の形態素解析結果が未定義の場合はNONEとしている.
         | "動詞" => List.@ ([Type.動詞 {動詞 = #1_表層形 record, 動詞情報 = record}], separate (List.hd lis) (List.tl lis))
         | "名詞" => List.@ ([Type.名詞 {名詞 = #1_表層形 record, 名詞情報 = record}], separate (List.hd lis) (List.tl lis))
         | _ => raise Fail "unknown hinshi"
-\end{Verbatim}
+\end{verbatim}
 
 形態素の品詞をレコードから取り出し, 助詞であれば前に存在する名詞と助詞の情報を統合し, 文節に分けることを実現している.
 
 以下に"象は鼻が長い"の文節分け結果を示す.
 
-\begin{Verbatim}
+\begin{verbatim}
     [
         名詞は
         {
@@ -481,7 +481,7 @@ Juman++の形態素解析結果が未定義の場合はNONEとしている.
             }
         }
       ]
-\end{Verbatim}
+\end{verbatim}
 
 
 \section{文節ごとに部分意味表現を作成する}
